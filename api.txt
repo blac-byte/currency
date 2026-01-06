@@ -176,3 +176,14 @@
   "ZWL":25.9875
  }
 }
+
+
+Box model (width, height, padding, margin, border)
+
+Positioning (position, top, left, right, z-index)
+
+Flex/Grid (display, flex properties)
+
+Visuals (background, colors, font, border-radius)
+
+Misc (cursor, overflow, etc.)

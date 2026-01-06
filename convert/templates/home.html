@@ -2,52 +2,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{% static 'convert/styles.css' %}">
     <link rel="stylesheet" href="{% static 'convert/header.css' %}">
     <link rel="stylesheet" href="{% static 'convert/body.css' %}">
     <script src="{% static 'convert/script.js' %}" defer></script>
+
     <title>Welcome</title>
 </head>
 <body>
-
-    <header class="header">
-        <div class="header__top">
-            <ul>
-                <li><a class=''></a></li>
-            </ul>
-        </div>
-        <div class="header__bottom">
-
-        </div>
-    </header>
-
-
-    <form onsubmit="return false;">
-        {% csrf_token %}
-
-        <div class="container">
-            <div class="currency-box">
+    <div class="card">
+        <div class="currency-card">
+            <div class="from_box">
                 <input class="from_value" name="from_value">
                 <select class="from" name="from" id="from">
-                    <option value="USD">United States</option>
-                    <option value="INR">India</option>
+                    <option value="USD">USD</option>
+                    <option value="INR">INR</option>
                 </select>
             </div>
 
-            <div class="currency-box">
+            <div class="to_box">
                 <input class="to_value" name="to_value">
                 <select class="to" name="to" id="to">
-                    <option value="USD">United States</option>
-                    <option value="INR">India</option>
+                    <option value="USD">USD</option>
+                    <option value="INR">INR</option>
                 </select>
             </div>
         </div>
-    
 
-    </form>
-    
+        <div class="currency-card__footer">
+            <div>
+                <span class="rate from_value__footer"></span> <span class="rate from_country"></span><span class="rate"> = </span><span class="rate to_value__footer"></span> <span class="rate to_country"></span>
+            </div>
+            <p class="time"></p>
+        </div>
+    </div>
+
 </body>
 </html>

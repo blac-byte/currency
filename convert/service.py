@@ -1,8 +1,7 @@
 #covert/service.py
 import requests
 from django.core.cache import cache
-
-
+from decimal import Decimal
 
 class CurrencyServiceError(Exception):
     pass
@@ -20,20 +19,25 @@ def fetch_rate(from_country, to_country):
             response.raise_for_status()  # 🚨 IMPORTANT
 
             key = response.json()
-            rates = key["conversion_rates"]
+            payload = {
+                "rates": key["conversion_rates"],
+                "last_updated": key["time_last_update_utc"],
+            }
 
-            cache.set(cache_key, rates, 1800)
+            cache.set(cache_key, payload, timeout=1800)
 
-            rate = rates[to_country]
-            return rate
+
+            rate = payload["rates"][to_country]
+            return (Decimal(rate), payload["last_updated"])
 
         except (requests.RequestException, KeyError, ValueError) as e:
             raise CurrencyServiceError("Currency service unavailable") from e
 
     # cache hit
     try:
-        rate = rate_value[to_country]
-        return rate
+        rate = rate_value["rates"][to_country]
+        time = rate_value["last_updated"]
+        return rate, time
     except KeyError as e:
         raise CurrencyServiceError("Currency not found") from e
 

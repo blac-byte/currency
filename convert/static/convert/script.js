@@ -3,7 +3,7 @@ const csrftoken = document
   .getAttribute('content');
 
 let timer;
-
+console.log("hi there")
 document.querySelector(".from_value").addEventListener("input", () => {
     clearTimeout(timer);
 
@@ -32,5 +32,11 @@ document.querySelector(".from_value").addEventListener("input", () => {
 
         const data = await response.json();
         document.querySelector(".to_value").value = data.result;
+        document.querySelector(".time").innerText = data.last_updated;
+        
+        document.querySelector(".from_country").innerText = from_country;
+        document.querySelector(".to_country").innerText = to_country;
+        document.querySelector(".from_value__footer").innerText = from_value;
+        document.querySelector(".to_value__footer").innerText = data.result;
     }, 400);
 });
